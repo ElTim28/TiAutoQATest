@@ -1,1 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Numerics;
 
+namespace TestTask_
+{
+    class Point
+    {
+        public Point(int x, int y)
+        {
+            this.x = x; this.y = y;
+        }
+
+        private int x;
+        private int y;
+
+        public int X { get { return x; } }
+        public int Y { get { return y; } }
+    }
+    class Program
+    {
+        static double GetLength(Point A, Point B)
+        {
+            // Math.Pow(B.x - A.x, 2);
+            return Math.Sqrt((B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y));
+        }
+        static void Main(string[] args)
+        {
+            Console.Write("Enter coordinate x of dot A: ");
+            int x1 = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter coordinate y of dot A: ");
+            int y1 = Convert.ToInt32(Console.ReadLine());
+            Point pointA = new Point(x1, y1);
+
+            Console.Write("Enter coordinate x of dot B: ");
+            int x2 = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter coordinate y of dot B: ");
+            int y2 = Convert.ToInt32(Console.ReadLine());
+            Point pointB = new Point(x2, y2);
+
+            Console.Write("Enter coordinate x of dot C: ");
+            int x3 = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter coordinate y of dot C: ");
+            int y3 = Convert.ToInt32(Console.ReadLine());
+            Point pointC = new Point(x3, y3);
+
+            double lengthAB = GetLength(pointA, pointB);
+            double lengthAC = GetLength(pointA, pointC);
+            double lengthBC = GetLength(pointB, pointC);
+
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"Length of AB is {lengthAB}");
+            Console.WriteLine($"Length of AC is {lengthAC}");
+            Console.WriteLine($"Length of BC is {lengthBC}");
+
+            Console.WriteLine(new string('-', 50));
+            //
+            bool isEq = (lengthBC == lengthAC) && (lengthAC == lengthAB);
+            Console.WriteLine($"Triange is{(!isEq ? " NOT" : "")} 'Equaliteral'");
+            // 
+            bool isOsc = (lengthBC == lengthAC) || (lengthBC == lengthAB) || (lengthAC == lengthAB);
+            Console.WriteLine($"Triange is {(isOsc ? "Isosceles": "Unisosceles")}");
+            //
+            bool isRight = (Math.Pow(lengthAB, 2) == Math.Pow(lengthAC, 2) + Math.Pow(lengthBC, 2));
+            Console.WriteLine($"Triange is{(!isRight ?  " NOT" : "")} 'Right'");
+
+            //
+            double perimeter = lengthAB + lengthAC + lengthBC;
+            Console.WriteLine("Perimeter is {0}", perimeter);
+
+            for (int i = 0; i <= perimeter; i+=2)
+            {
+                if (i % 2 == 0)
+                    Console.WriteLine(i);
+            }
+            Console.ReadLine();
+
+
+        }
+    }
+}
